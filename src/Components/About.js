@@ -1,31 +1,35 @@
 import React ,{useState} from "react";
 
 export default function About(props) {
-    const [mystyle,setfstyle]= useState({
-        color:'black',
-        backgroundColor:'white'
-    })
-    const [btntext , setbtntext]=useState("Enable Dark Mode")
-    const togglestyle = ()=>{
-      if(mystyle.color === 'black'){
-        setfstyle({
-         color: 'white',
-         backgroundColor:'black',
-         border:'1px solid white'
-        })
-        setbtntext("Enable Light Mode")
-      }
-      else{
-        setfstyle({
-            color:'black',
-            backgroundColor:'white'
-        })
-        setbtntext("Enable Dark Mode")
-      }
+    // const [mystyle,setfstyle]= useState({
+    //     color:'black',
+    //     backgroundColor:'white'
+    // })
+    // const [btntext , setbtntext]=useState("Enable Dark Mode")
+    // // const togglestyle = ()=>{
+    //   if(mystyle.color === 'black'){
+    //     setfstyle({
+    //      color: 'white',
+    //      backgroundColor:'black',
+    //      border:'1px solid white'
+    //     })
+    //     setbtntext("Enable Light Mode")
+    //   }
+    //   else{
+    //     setfstyle({
+    //         color:'black',
+    //         backgroundColor:'white'
+    //     })
+    //     setbtntext("Enable Dark Mode")
+    //   }
+    // }
+    let mystyle ={
+      color:props.mode==='dark'?'white':'#042743',
+      backgroundColor:props.mode==='dark'?'#042743':'white'
     }
   return (
     <div className="container my-3" >
-        <h3>About</h3>
+        <h3 style={mystyle}>About</h3>
       <div className="accordion"   id="accordionExample">
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
@@ -121,7 +125,7 @@ export default function About(props) {
           </div>
         </div>
       </div>
-      <button onClick={togglestyle} className="btn btn-primary my-3" type="button" >{btntext}</button>
+      {/* <button className="btn btn-primary my-3" type="button" >{btntext}</button> */}
     </div>
   );
 }

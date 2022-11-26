@@ -2,10 +2,10 @@ import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import TextForm from "./Components/TextForm";
-// import About from "./Components/About";
+import About from "./Components/About";
 import React, { useState } from "react";
 import Alert from "./Components/Alert";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [alert, setalert] = useState(null);
@@ -47,9 +47,8 @@ function App() {
     showalert("Yellow mode has been enabled", "primary");
   };
   return (
-    // <Router>
-    <>
-      <Navbar
+    <Router>
+       <Navbar
         title="TextUtils"
         about="About"
         togglemode={togglemode}
@@ -61,17 +60,16 @@ function App() {
       />
       <div className="container my-3">
         <Alert alert={alert} />
-        <TextForm showalert={showalert}mode={mode} heading="UPPERCASE or lowercase"/>
+      
       </div>
 
-      {/* <Routes>
-        <Route path="/about" element={<About />}></Route>
+      <Routes>
+        <Route path="/about" element={<About mode={mode}/>}></Route>
         <Route
-          path="/"element={ }
+          path="/"element={  <TextForm showalert={showalert}mode={mode} heading="UPPERCASE or lowercase"/>}
         ></Route>
       </Routes>
-    </Router> */}
-    </>
+    </Router>
   );
 }
 

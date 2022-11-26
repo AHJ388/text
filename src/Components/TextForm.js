@@ -17,6 +17,11 @@ export default function TextForm(props) {
     setText(newtext);
     props.showalert("Text is cleared", "success");
   };
+  const copytext = () => {
+    navigator.clipboard.writeText(Text);
+    document.getSelection().removeAllRanges();
+    props.showalert("Copied to clipboard", "success");
+  };
   const removes = () => {
     let newtext = Text.split(/[ ]+/);
     setText(newtext.join(" "));
@@ -25,17 +30,6 @@ export default function TextForm(props) {
   const onchange = (event) => {
     setText(event.target.value);
   };
-
-  // function countWords(text) {
-  //   let wc = text.split(" ").length;
-  //   text.split(" ").forEach((word) => {
-  //     if (!word.length) {
-  //       wc -= 1;
-  //     }
-  //   });
-
-  //   return wc;
-  // }
   return (
     <>
       <div
@@ -48,8 +42,6 @@ export default function TextForm(props) {
             style={{
               backgroundColor: props.mode === "dark" ? "#042743" : "white",
               color: props.mode === "dark" ? "white" : "#042743",
-              // backgroundColor: props.togglemode1 === "lightskyblue" ? "lightskyblue" : "white",
-              // color: props.togglemode1 === "lightskyblue" ? "white" : "lightskyblue",
             }}
             className="form-control"
             value={Text}
@@ -57,16 +49,39 @@ export default function TextForm(props) {
             id="example FormControlTextareal"
             rows="8"
           ></textarea>
-          <button className="btn btn-primary mx-3 my-3" onClick={uppercase}>
+          <button
+            disabled={Text.length === 0}
+            className="btn btn-primary mx-3 my-3"
+            onClick={uppercase}
+          >
             UPPERCASE
           </button>
-          <button className="btn btn-primary" onClick={lowercase}>
+          <button
+            disabled={Text.length === 0}
+            className="btn btn-primary mx-3 my-3 "
+            onClick={lowercase}
+          >
             lowercase
           </button>
-          <button className="btn btn-primary mx-3" onClick={cleartext}>
+          <button
+            disabled={Text.length === 0}
+            className="btn btn-primary mx-3 my-3"
+            onClick={cleartext}
+          >
             Clear Text
           </button>
-          <button className="btn btn-primary " onClick={removes}>
+          <button
+            disabled={Text.length === 0}
+            className="btn btn-primary mx-3 my-3"
+            onClick={copytext}
+          >
+            Copy Text
+          </button>
+          <button
+            disabled={Text.length === 0}
+            className="btn btn-primary mx-3 my-3 "
+            onClick={removes}
+          >
             Remove Extra Spaces
           </button>
         </div>
@@ -78,9 +93,21 @@ export default function TextForm(props) {
       >
         <h2>Your text summary </h2>
         <p>
-          {Text.split(" ").length} Words and {Text.length} Characters
+          {
+            Text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          Words and {Text.length} Characters
         </p>
-        <p>Can be read in {0.008 * Text.split(" ").length} Minutes</p>
+        <p>
+          Can be read in{" "}
+          {0.008 *
+            Text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          Minutes
+        </p>
         <hr />
       </div>
     </>
